@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Show Key {% endblock %}
+
+{% block body %}
+
+
+<h1>All the keys</h1>
+
+{% for x in model %}
+
+<hr>
+{{x.id}}<br>
+{{x.author}}<br>
+{{x.accesskey}}<br>
+{{x.secretaccesskey}}<br>
+{{x.region}}<br>
+
+
+{% endfor %}
+
+
+{% endblock %}
