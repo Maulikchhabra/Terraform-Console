@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} Terraform Page {% endblock %}
+
+{% block body %}
+
+<h1>Lets create Infrastructure!</h1>
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-3 align-items-center">
+            <a href="/infra/terr/init" class="btn">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Initialize your infrastructure</button>
+            </a>
+        </div>
+        <br>
+        <div class="col-3  align-items-center">
+            <a href="/infra/terr/plan" class="btn">
+                <button type="submit" class="btn btn-warning btn-lg btn-block">Plan your infrastructure</button>
+            </a>
+        </div>
+        <br>
+        <div class="col-3  align-items-center">
+            <a href="/infra/terr/apply" class="btn">
+                <button type="submit" class="btn btn-success btn-lg btn-block">Apply your infrastructure</button>
+            </a>
+        </div>
+        <br>
+        <div class="col-3 align-items-center">
+            <a href="/infra/terr/destroy" class="btn">
+                <button type="submit" class="btn btn-danger btn-lg btn-block">Destroy your infrastructure</button>
+            </a>
+        </div>
+        <br>
+    </div>
+</div>
+<br><br>
+
+<div class="container">
+  <div class="row p-3">
+
+  {% if stdout %}
+    {% if returncode == 0 %}
+    <div class="col-12"><button class="btn btn-success btn-lg btn-block">Success</button></div>
+        <br>
+        <hr>
+      <div class="col-12 bg-light m-2 p-2"></div>
+        <br>
+    <div class="col-12">
+        <pre class="bg-dark text-white">{{stdout}}</pre>
+    </div>
+    {% else %}
+    <div class="col-12"><button class="btn btn-danger btn-lg btn-block">Failure</button></div>
+        <br>
+        <hr>
+      <div class="col-12 bg-light m-2 p-2"></div>
+        <br>
+    <div class="col-12">
+        <pre class="bg-dark text-white">{{stderr}}</pre>
+    </div>
+    {% endif %}
+  {% endif %}
+
+{% endblock %}

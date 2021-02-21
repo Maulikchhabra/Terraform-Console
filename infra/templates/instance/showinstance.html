@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Show Instance {% endblock %}
+
+{% block body %}
+
+<h1>All the Instances</h1>
+
+{% for x in model %}
+
+<div class="row mt-2 mb-2">
+
+    <div class="col-6 bg-dark">
+        <div class="row mt-2 mb-2">
+            <div class="col-3 bg-dark text-white"></div>
+
+                <div class="p-3 col-6 bg-info text-white">
+                    <h6>{{x.name}}</h6>
+                    <h6>{{x.ami}}</h6>
+                    <h6>{{x.instancetype}}</h6>
+                    <a href="/infra/editinstance/{{x.name}}"><button class="btn btn-success">Edit</button></a>
+                    <a href="/infra/deleteinstance/{{x.name}}"><button class="btn btn-danger">Delete</button></a>
+                    <a href="/infra/duplicateinstance/{{x.name}}"><button class="btn btn-secondary">Duplicate</button></a>
+                </div>
+                <div class="col-3 bg-dark text-white"></div>
+                <hr><br><hr><br><hr><br>
+        </div>
+    </div>
+    <div class="col-6 bg-dark">
+        <div class="row mt-2 mb-2">
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} Demo Page {% endblock %}
+
+{% block body %}
+
+<h1>Lets create Infrastructure!</h1>
+
+
+<div class="container">
+  <div class="row bg-secondary p-3">
+
+    <div class="col-lg-3">
+
+    </div>
+
+    <div class="col-lg-6 d-flex align-items-center">
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Initialize your infrastructure</button>
+        </form>
+    </div>
+
+    <div class="col-lg-3">
+
+    </div>
+
+  </div>
+  {% if stdout %}
+    {% if returncode == 0 %}
+    <div class="bg-success">It was a success</div>
+    {% else %}
+    <div class="bg-danger">It was a failure</div>
+    {% endif %}
+  {% endif %}
+
+  <div class="text-white">
+      <pre>{{returncode}}</pre>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <div class="text-white">
+      <pre class="bg-dark text-white">{{stdout}}</pre>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div class="text-white">
+      <pre>{{stderr}}</pre>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+</div>
+
+{% endblock %}

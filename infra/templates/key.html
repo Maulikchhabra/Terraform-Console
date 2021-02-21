@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Key {% endblock %}
+
+{% block body %}
+
+<h1>Key Page</h1>
+<form actions="key" method="post">
+
+        {% csrf_token %}
+
+        <form>
+          <div class="form-group">
+              <label>Author</label>
+            {{form.author}}
+          </div>
+          <div class="form-group">
+            <label>Access Key</label>
+              {{form.accesskey}}
+            </div>
+          <div class="form-group">
+            <label>Secret Access Key</label>
+              {{form.secretaccesskey}}
+            </div>
+          <div class="form-group">
+            <label>Region</label>
+              {{form.region}}
+            </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+</form>
+
+{% endblock %}
