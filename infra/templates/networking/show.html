@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} Show {% endblock %}
+
+{% block body %}
+
+<h1>Hello Networking Elements!</h1>
+
+<div>
+    <div class="row">
+
+
+        <div class="col-3 bg-dark text-light">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/vpc"><button type="submit" class="btn btn-lg btn-block btn-primary">Create VPC</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/subnet"><button type="submit" class="btn btn-lg btn-block btn-primary">Create Subnet</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/interface"><button type="submit" class="btn btn-lg btn-block btn-primary">Create Network interface</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/show"><button type="submit" class="btn btn-lg btn-block btn-primary">View Networking Parameters</button></a>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-9">
+
+            <div class="container">
+                <h3> VPCs </h3>
+                <div class="row bg-dark text-light">
+
+                    {% for x in vpc %}
+                    <div class="col-2"></div>
+                    <div class="col-8 bg-info">
+                        <h5>{{x.name}}</h5>
+                        <h5>{{x.cidrblock}}</h5>
+                        <a href="/infra/networking/vpc/edit/{{x.name}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="/infra/networking/vpc/delete/{{x.name}}"><button class="btn btn-danger">Delete</button></a>
+                        <a href="/infra/networking/vpc/duplicate/{{x.name}}"><button class="btn btn-secondary">Duplicate</button></a>
+                    </div>
+                    <br>
+
+                    <div class="col-2"></div>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+            <br><hr>
+            <div class="container">
+                <h3> Subnets </h3>
+                <div class="row bg-dark text-light">
+
+                    {% for x in subnet %}
+                    <div class="col-2"></div>
+                    <div class="col-8 bg-info">
+                        <h5>{{x.name}}</h5>
+                        <h5>{{x.vpcid}}</h5>
+                        <h5>{{x.cidrblock}}</h5>
+                        <a href="/infra/networking/subnet/edit/{{x.name}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="/infra/networking/subnet/delete/{{x.name}}"><button class="btn btn-danger">Delete</button></a>
+                        <a href="/infra/networking/subnet/duplicate/{{x.name}}"><button class="btn btn-secondary">Duplicate</button></a>
+                    </div>
+
+                    <div class="col-2"></div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <br><hr>
+            <div class="container">
+                <h3> Network Interface </h3>
+                <div class="row bg-dark text-light">
+
+                    {% for x in networkinterface %}
+                    <div class="col-2"></div>
+                    <div class="col-8 bg-info">
+                        <h5>{{x.name}}</h5>
+                        <h5>{{x.subnetid}}</h5>
+                        <h5>{{x.privateips}}</h5>
+                        <a href="/infra/networking/netint/edit/{{x.name}}"><button class="btn btn-success">Edit</button></a>
+                        <a href="/infra/networking/netint/delete/{{x.name}}"><button class="btn btn-danger">Delete</button></a>
+                        <a href="/infra/networking/netint/duplicate/{{x.name}}"><button class="btn btn-secondary">Duplicate</button></a>
+                    </div>
+                    <div class="col-2"></div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

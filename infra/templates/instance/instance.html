@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} Instance {% endblock %}
+
+{% block body %}
+
+<h1>Hello Instance!</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      All instances
+    </div>
+    <div class="col-lg-6 d-flex align-items-center">
+        <form actions="instance" method="post">
+
+        {% csrf_token %}
+
+
+
+        <form>
+                  <div class="form-group">
+                      <label>Instance Name</label><br>
+                    {{form.name}}
+                  </div>
+                  <div class="form-group">
+                    <label>Instance AMI</label><br>
+                      {{form.ami}}
+                    </div>
+                  <div class="form-group">
+                    <label>Instance Type</label><br>
+                      {{form.instancetype}}
+                    </div>
+
+                  <div class="form-group">
+                    <label>Network Interface (if)</label><br>
+                      {{form.netint}}
+                    </div>
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+
+        </form>
+    </div>
+    <div class="col-lg-3">
+      All instances
+    </div>
+  </div>
+</div>
+
+{% endblock %}

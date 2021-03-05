@@ -40,7 +40,7 @@
 <div class="container">
   <div class="row p-3">
 
-  {% if stdout %}
+
     {% if returncode == 0 %}
     <div class="col-12"><button class="btn btn-success btn-lg btn-block">Success</button></div>
         <br>
@@ -50,7 +50,10 @@
     <div class="col-12">
         <pre class="bg-dark text-white">{{stdout}}</pre>
     </div>
-    {% else %}
+    {% endif %}
+
+
+    {% if returncode != 0 %}
     <div class="col-12"><button class="btn btn-danger btn-lg btn-block">Failure</button></div>
         <br>
         <hr>
@@ -60,6 +63,7 @@
         <pre class="bg-dark text-white">{{stderr}}</pre>
     </div>
     {% endif %}
-  {% endif %}
+    
+
 
 {% endblock %}

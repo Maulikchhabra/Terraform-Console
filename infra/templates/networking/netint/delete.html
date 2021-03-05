@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Network Interface {% endblock %}
+
+{% block body %}
+
+<h1>Deleting a Network Interface</h1>
+
+
+
+<div class="row mt-2 mb-2">
+    <div class="col-3 bg-dark text-white"></div>
+
+    <div class="p-3 col-6 bg-danger text-white">
+
+        <form actions="instance" method="post">
+
+            {% csrf_token %}
+
+            <h5>{{instance.name}}</h5><br>
+            <h5>{{instance.subnetid}}</h5><br>
+            <h5>{{instance.privateips}}</h5><br>
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
+    </div>
+
+    <div class="col-3 bg-dark text-white"></div>
+
+
+    <hr>
+    <br>
+    <hr>
+    <br>
+    <hr>
+    <br>
+
+
+
+
+
+</div>
+
+
+{% endblock %}

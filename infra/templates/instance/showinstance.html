@@ -18,6 +18,9 @@
                     <h6>{{x.name}}</h6>
                     <h6>{{x.ami}}</h6>
                     <h6>{{x.instancetype}}</h6>
+                    {% if x.netint %}
+                    <h6>{{x.netint}}</h6>
+                    {%endif%}
                     <a href="/infra/editinstance/{{x.name}}"><button class="btn btn-success">Edit</button></a>
                     <a href="/infra/deleteinstance/{{x.name}}"><button class="btn btn-danger">Delete</button></a>
                     <a href="/infra/duplicateinstance/{{x.name}}"><button class="btn btn-secondary">Duplicate</button></a>

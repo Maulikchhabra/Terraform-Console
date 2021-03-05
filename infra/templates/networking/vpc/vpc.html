@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} VPC {% endblock %}
+
+{% block body %}
+
+<h1>Hello VPC!</h1>
+
+<div>
+    <div class="row">
+        <div class="col-3 bg-dark text-light">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/vpc"><button type="submit" class="btn btn-lg btn-block btn-primary">Create VPC</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/subnet"><button type="submit" class="btn btn-lg btn-block btn-primary">Create Subnet</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/interface"><button type="submit" class="btn btn-lg btn-block btn-primary">Create Network interface</button></a>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="/infra/networking/show"><button type="submit" class="btn btn-lg btn-block btn-primary">View Networking Parameters</button></a>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-9">
+            <form actions="instance" method="post">
+
+                {% csrf_token %}
+                  <div class="form-group">
+                      <label>VPC Name</label><br>
+                    {{form.name}}
+                  </div>
+                  <div class="form-group">
+                    <label>Cidr Block</label><br>
+                      {{form.cidrblock}}
+                    </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
