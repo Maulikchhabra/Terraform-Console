@@ -4,7 +4,7 @@ import re
 
 
 def terraform_init():
-    os.chdir('F:\Python\TerraformCode\MyDjango\infra\src\\terraform')
+    os.chdir('D:\Minor 2\Demo\MyDjango\infra\src\\terraform')
     output = subprocess.run('terraform init', shell=True, capture_output=True, text=True)
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     result1 = ansi_escape.sub('', output.stdout)
@@ -20,7 +20,7 @@ def terraform_init():
 
 
 def terraform_plan():
-    os.chdir('F:\Python\TerraformCode\MyDjango\infra\src\\terraform')
+    os.chdir('D:\Minor 2\Demo\MyDjango\infra\src\\terraform')
     output = subprocess.run('terraform plan', shell=True, capture_output=True, text=True)
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     result1 = ansi_escape.sub('', output.stdout)
@@ -36,7 +36,7 @@ def terraform_plan():
 
 
 def terraform_apply():
-    os.chdir('F:\Python\TerraformCode\MyDjango\infra\src\\terraform')
+    os.chdir('D:\Minor 2\Demo\MyDjango\infra\src\\terraform')
     output = subprocess.run('terraform apply -auto-approve', shell=True, capture_output=True, text=True)
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     result1 = ansi_escape.sub('', output.stdout)
@@ -52,7 +52,7 @@ def terraform_apply():
 
 
 def terraform_destroy():
-    os.chdir('F:\Python\TerraformCode\MyDjango\infra\src\\terraform')
+    os.chdir('D:\Minor 2\Demo\MyDjango\infra\src\\terraform')
     output = subprocess.run('terraform destroy -auto-approve', shell=True, capture_output=True, text=True)
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     result1 = ansi_escape.sub('', output.stdout)

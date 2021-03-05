@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .forms import KeyForm, InstanceForm, InstanceModelForm
-from .models import KeyModel, InstanceModel
-from .scriptbuilder import myfunc
+from .forms import KeyForm, InstanceModelForm, VPCModelForm, SubnetModelForm, NetworkInterfaceModelForm
+from .models import KeyModel, InstanceModel, VPCModel, SubnetModel, NetworkInterfaceModel
+from .scriptbuilder import createScript
 from .runterminal import *
 
 
@@ -55,7 +55,7 @@ def Instance(request):
         context = {
             'form': form,
         }
-        return render(request, 'instance.html', context)
+        return render(request, 'instance/instance.html', context)
 
 
 def ShowInstance(request):
@@ -64,8 +64,8 @@ def ShowInstance(request):
     context = {
         'model': mymodel
     }
-    myfunc(mymodel, mykey)
-    return render(request, 'showinstance.html', context)
+    # myfunc(mymodel, mykey)
+    return render(request, 'instance/showinstance.html', context)
 
 
 def EditInstance(request, n):
@@ -82,7 +82,7 @@ def EditInstance(request, n):
         context ={
             'instance': form
         }
-        return render(request, 'editinstance.html', context)
+        return render(request, 'instance/editinstance.html', context)
     # instance = InstanceModel.objects.get(name=n)
     # print(instance)
     # context = {
@@ -105,7 +105,7 @@ def DuplicateInstance(request, n):
     context ={
         'instance': form
     }
-    return render(request, 'duplicateinstance.html', context)
+    return render(request, 'instance/duplicateinstance.html', context)
 
 
 def DeleteInstance(request, n):
@@ -119,7 +119,7 @@ def DeleteInstance(request, n):
     context = {
         'instance': instance
     }
-    return render(request, 'deleteinstance.html', context)
+    return render(request, 'instance/deleteinstance.html', context)
 
 
 def RunScripts(request):
@@ -131,15 +131,221 @@ def RunScripts(request):
 
 
 def RunTerraform(request, n):
+
     context = {}
     if n == 'init':
         context = terraform_init()
+        print(context)
     elif n == 'plan':
         context = terraform_plan()
+        print(context)
     elif n == 'apply':
         context = terraform_apply()
+        print(context)
     elif n == 'destroy':
         context = terraform_destroy()
+        print(context)
     else:
         context = {}
+        myvpc = VPCModel.objects.all()
+        mysubnet = SubnetModel.objects.all()
+        mynetint = NetworkInterfaceModel.objects.all()
+        mymodel = InstanceModel.objects.all()
+        mykey = KeyModel.objects.get(id=1)
+        createScript(myvpc, mysubnet, mynetint, mymodel, mykey)
     return render(request, 'runscripts/terraform.html', context)
+
+
+def VPC(request):
+    if request.method == 'POST':
+        form = VPCModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'home.html')
+    else:
+        form = VPCModelForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'networking/vpc/vpc.html', context)
+    # return render(request, 'networking/vpc.html')
+
+
+def ShowNetworks(request):
+    vpc = VPCModel.objects.all()
+    subnet = SubnetModel.objects.all()
+    networkinterface = NetworkInterfaceModel.objects.all()
+
+    context = {
+        'vpc': vpc,
+        'subnet': subnet,
+        'networkinterface': networkinterface,
+    }
+    return render(request, 'networking/show.html', context)
+
+
+def Subnet(request):
+    if request.method == 'POST':
+        form = SubnetModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'home.html')
+    else:
+        form = SubnetModelForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'networking/subnet/subnet.html', context)
+    # return render(request, 'networking/vpc.html')
+
+
+
+def NetworkInterface(request):
+    if request.method == 'POST':
+        form = NetworkInterfaceModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'home.html')
+    else:
+        form = NetworkInterfaceModelForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'networking/netint/interface.html', context)
+    # return render(request, 'networking/vpc.html')
+
+
+def EditVPC(request, n):
+    if request.method == 'POST':
+        instance = VPCModel.objects.get(name=n)
+        form = VPCModelForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    else:
+        instance = VPCModel.objects.get(name=n)
+        form = VPCModelForm(instance=instance)
+        context ={
+            'instance': form
+        }
+        return render(request, 'networking/vpc/editvpc.html', context)
+
+
+def DuplicateVPC(request, n):
+    if request.method == 'POST':
+        instance = VPCModel.objects.get(name=n)
+        form = VPCModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    instance = VPCModel.objects.get(name=n)
+    form = VPCModelForm(instance=instance)
+    context ={
+        'instance': form
+    }
+    return render(request, 'networking/vpc/duplicatevpc.html', context)
+
+
+
+def DeleteVPC(request, n):
+    if request.method == 'POST':
+        VPCModel.objects.get(name=n).delete()
+        return render(request, 'home.html')
+
+    instance = VPCModel.objects.get(name=n)
+    context = {
+        'instance': instance
+    }
+    return render(request, 'networking/vpc/deletevpc.html', context)
+
+
+def EditSubnet(request, n):
+    if request.method == 'POST':
+        instance = SubnetModel.objects.get(name=n)
+        form = SubnetModelForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    else:
+        instance = SubnetModel.objects.get(name=n)
+        form = SubnetModelForm(instance=instance)
+        context ={
+            'instance': form
+        }
+        return render(request, 'networking/subnet/editsubnet.html', context)
+
+
+def DuplicateSubnet(request, n):
+    if request.method == 'POST':
+        instance = SubnetModel.objects.get(name=n)
+        form = SubnetModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    instance = SubnetModel.objects.get(name=n)
+    form = SubnetModelForm(instance=instance)
+    context = {
+        'instance': form
+    }
+    return render(request, 'networking/subnet/duplicatesubnet.html', context)
+
+
+def DeleteSubnet(request, n):
+    if request.method == 'POST':
+        SubnetModel.objects.get(name=n).delete()
+        return render(request, 'home.html')
+
+    instance = SubnetModel.objects.get(name=n)
+    context = {
+        'instance': instance
+    }
+    return render(request, 'networking/subnet/deletesubnet.html', context)
+
+
+def EditNetInt(request, n):
+    if request.method == 'POST':
+        instance = NetworkInterfaceModel.objects.get(name=n)
+        form = NetworkInterfaceModelForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    else:
+        instance = NetworkInterfaceModel.objects.get(name=n)
+        form = NetworkInterfaceModelForm(instance=instance)
+        context ={
+            'instance': form
+        }
+        return render(request, 'networking/netint/edit.html', context)
+
+
+def DuplicateNetInt(request, n):
+    if request.method == 'POST':
+        instance = NetworkInterfaceModel.objects.get(name=n)
+        form = NetworkInterfaceModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html')
+
+    instance = NetworkInterfaceModel.objects.get(name=n)
+    form = NetworkInterfaceModelForm(instance=instance)
+    context = {
+        'instance': form
+    }
+    return render(request, 'networking/netint/duplicate.html', context)
+
+
+def DeleteNetInt(request, n):
+    if request.method == 'POST':
+        NetworkInterfaceModel.objects.get(name=n).delete()
+        return render(request, 'home.html')
+
+    instance = NetworkInterfaceModel.objects.get(name=n)
+    context = {
+        'instance': instance
+    }
+    return render(request, 'networking/netint/delete.html', context)
