@@ -4,7 +4,7 @@ Terraform is a famous Infrastructure as a Code (IaaS) utility through which we c
 
 The configuration file has a predefined syntax which has to be followed to get the desired infrastructure.
 
-A web based console for Terraform Command Line utility.
+In this project, we developed a web based console for Terraform Command Line utility.
 
 The project uses Django to update the Terraform configuration file as per the services selected by the user on the web console and Terraform as a result sends the request to the cloud provider for provisioning the infrastructure specified.
 
